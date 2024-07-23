@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class CardController extends Controller
 {
 
-    public function search(Request $request) {
+    public function search(Request $request): JsonResponse
+    {
         $request->validate([
 
         ]);
@@ -32,7 +35,22 @@ class CardController extends Controller
         return response()->json($filteredCards);
     }
 
-    public function add(Request $request) {
+    public function add(Request $request): JsonResponse
+    {
 
+        $card = Card::query()->create([
+            'name' => 'Blue-Eyes Fire Drake',
+            'type' => 'Effect Monster',
+            'frame_type' => 'effect',
+            'desc' => 'Blast-off you insolent fortniter',
+            'atk' => 3000,
+            'def' => 0,
+            'level' => 8,
+            'race' => 'Pyro',
+            'attribute' => 'Fire',
+            'archetype' => 'Blue-Eyes'
+        ]);
+
+        return response()->json($card);
     }
 }

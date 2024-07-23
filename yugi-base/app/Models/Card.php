@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
         'type',
+        'frame_type',
+        'desc',
+        'atk',
+        'def',
+        'level',
+        'race',
+        'attribute',
+        'archetype'
     ];
 }
