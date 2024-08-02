@@ -53,4 +53,12 @@ class CardController extends Controller
 
         return response()->json($card);
     }
+
+    public function index(Request $request): JsonResponse
+    {
+
+        $cards = Card::query()->get();
+
+        return response()->json($cards);
+    }
 }
