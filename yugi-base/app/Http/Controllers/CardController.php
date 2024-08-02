@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCardRequest;
 use App\Models\Card;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,31 +33,36 @@ class CardController extends Controller
             ];
         }, $cards);
 
-        return response()->json($filteredCards);
+        return response()->json($cards);
     }
 
-    public function add(Request $request): JsonResponse
+    public function add(StoreCardRequest $request): JsonResponse
     {
 
-        $card = Card::query()->create([
-            'name' => 'Blue-Eyes Fire Drake',
-            'type' => 'Effect Monster',
-            'frame_type' => 'effect',
-            'desc' => 'Blast-off you insolent fortniter',
-            'atk' => 3000,
-            'def' => 0,
-            'level' => 8,
-            'race' => 'Pyro',
-            'attribute' => 'Fire',
-            'archetype' => 'Blue-Eyes'
-        ]);
+        $validatedData = $request->validated();
 
-        return response()->json($card);
+        $existingCard = Card::query()->where('name', $validatedData['name'])->first();
+
+        if ($existingCard) {
+            $existingCard->quantity += $validatedData['quantity'];
+            $existingCard->save();
+
+            return response()->json([
+                'data' => $existingCard,
+                'message' => 'Card quantity updated successfully!',
+            ]);
+        }
+
+        $card = Card::query()->create($validatedData);
+
+        return response()->json([
+            'data' => $card,
+            'message' => 'Card created successfully!',
+        ], 201);
     }
 
     public function index(Request $request): JsonResponse
     {
-
         $cards = Card::query()->get();
 
         return response()->json($cards);

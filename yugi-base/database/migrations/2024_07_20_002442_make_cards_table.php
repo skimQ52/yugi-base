@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('race')->nullable();
             $table->string('attribute')->nullable();
             $table->string('archetype')->nullable();
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

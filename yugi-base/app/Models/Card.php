@@ -17,6 +17,7 @@ class Card extends Model
         'level',
         'race',
         'attribute',
-        'archetype'
+        'archetype',
+        'quantity',
     ];
 }
