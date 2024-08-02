@@ -33,7 +33,7 @@ class CardController extends Controller
             ];
         }, $cards);
 
-        return response()->json($cards);
+        return response()->json($filteredCards);
     }
 
     public function add(StoreCardRequest $request): JsonResponse

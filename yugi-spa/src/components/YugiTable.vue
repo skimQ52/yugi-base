@@ -37,6 +37,9 @@ export default {
         {
           field: 'attribute',
         },
+        {
+          field: 'actions', //TODO: cell renderer
+        },
       ];
     },
   },
